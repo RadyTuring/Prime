@@ -1,0 +1,89 @@
+﻿@model IEnumerable<PagesV>
+@{
+    var _roleId = ViewBag._roleid.ToString();
+    string contoller = null;
+    switch (_roleId)
+    {
+        case "1":
+            contoller = "Student";
+            break;
+        case "2":
+            contoller = "Teacher";
+            break;
+        case "3":
+            contoller = "Admin";
+            break;
+        case "4":
+            contoller = "Manager";
+            break;  
+        case "5":
+            contoller = "SuperManager";
+            break;
+    }
+}
+<aside id="sidebar">
+    <div class="h-100">
+        <div class="sidebar-logo">
+            <a asp-action="index" asp-controller="@contoller">  <img src="~/images/primepress-logo.png" alt="Prime Press" style="width: 75px; height: 75px;" /></a>
+        </div>
+        <!-- Sidebar Navigation -->
+        <ul class="sidebar-nav">
+            @{
+
+                List<PagesV> mainMenu = Model.Where(m => m.PgParentId == null || m.PgParentId == 0).OrderBy(m => m.PgORder).ToList();
+                List<PagesV> sideMenu = Model.Where(m => m.PgParentId != null).ToList();
+                List<string> prLst = new List<string>();
+                if (mainMenu.Count > 0)
+                {
+                    foreach (var t in mainMenu)
+                    {
+
+                        var combinedId = "p" + t.Id;
+                        var combinedId1 = "#p" + t.Id;
+
+                        if (t.PgParentId == null)
+                        {
+
+                            <li class="sidebar-item">
+                                <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="@combinedId1"
+                                   aria-expanded="false" aria-controls="pages">
+                                    <i class="@t.PgImage"></i>
+                                    @t.PgTitle
+                                </a>
+
+                                <ul id="@combinedId" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+
+                                    @foreach (var s in sideMenu)
+                                    {
+
+                                        if (t.Id == s.PgParentId)
+                                        {
+                                            string cntrl = @s.PgHref.Substring(0, @s.PgHref.IndexOf('/'));
+                                            string act = @s.PgHref.Substring(@s.PgHref.IndexOf('/') + 1);
+
+                                            <li class="sidebar-item">
+                                                <a asp-controller="@cntrl" asp-action="@act" class="sidebar-link">@s.PgTitle</a>
+                                            </li>
+                                        }
+                                    }
+                                </ul>
+                            </li>
+                        }
+                        else
+                        {
+                            string cntrl = @t.PgHref.Substring(0, @t.PgHref.IndexOf('/'));
+                            string act = @t.PgHref.Substring(@t.PgHref.IndexOf('/') + 1);
+                            <li class="sidebar-item">
+                                <a asp-controller="@cntrl" asp-action="@act" class="sidebar-link">
+                                    <i class="fa-solid fa-list pe-2"></i>
+                                    @t.PgTitle
+                                </a>
+                            </li>
+                        }
+
+                    }
+                }
+            }
+        </ul>
+    </div>
+</aside>

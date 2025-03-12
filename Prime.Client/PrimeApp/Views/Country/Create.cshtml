@@ -1,0 +1,57 @@
+﻿@model Entities.Country
+@{
+    string title = "Add Country";
+    ViewData["Title"] = title;
+    <partial name="_titleBar" model="@title" />
+}
+
+<div style="background-color: white; padding: 10px; border: 1px solid #ccc; border-radius: 5px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+    
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="CountryNameUtc" class="control-label"></label>
+                <input asp-for="CountryNameUtc" class="form-control" />
+                <span asp-validation-for="CountryNameUtc" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CountryName" class="control-label"></label>
+                <input asp-for="CountryName" class="form-control" />
+                <span asp-validation-for="CountryName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Code2" class="control-label"></label>
+                <input asp-for="Code2" class="form-control" />
+                <span asp-validation-for="Code2" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Code3" class="control-label"></label>
+                <input asp-for="Code3" class="form-control" />
+                <span asp-validation-for="Code3" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Code" class="control-label"></label>
+                <input asp-for="Code" class="form-control" />
+                <span asp-validation-for="Code" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TimeDif" class="control-label"></label>
+                <input asp-for="TimeDif" class="form-control" />
+                <span asp-validation-for="TimeDif" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

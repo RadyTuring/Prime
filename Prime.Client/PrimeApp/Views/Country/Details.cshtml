@@ -1,0 +1,63 @@
+﻿@model Entities.Country
+@{
+    string title = "Country Details";
+    ViewData["Title"] = title;
+    <partial name="_titleBar" model="@title" />
+}
+@{
+    ViewData["Title"] = "Countries";
+    ViewData["h1"] = "Prime";
+    ViewData["h2"] = "Countries";
+    ViewData["h3"] = "Prime";
+    ViewData["h4"] = "Countries";
+    ViewData["h5"] = "Details";
+}
+<div style="background-color: white; padding: 10px; border: 1px solid #ccc; border-radius: 5px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+
+
+<div>
+   
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CountryNameUtc)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CountryNameUtc)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CountryName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CountryName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Code2)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Code2)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Code3)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Code3)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Code)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Code)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TimeDif)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TimeDif)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.CountryId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
+</div>

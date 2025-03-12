@@ -1,0 +1,199 @@
+﻿@model UserFilter
+@{
+    string title = "Users";
+    ViewData["Title"] = title;
+    <partial name="_titleBar" model="@title" />
+}
+@{
+    var jsCode = ViewBag.filters;
+    var jsColumns = ViewBag.columns;
+    var jsActions = ViewBag.actions;
+}
+
+
+<div class="row">
+
+
+    <p>
+        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSection" aria-expanded="false" aria-controls="collapseSection" id="toggleButton">
+
+            <i class="fas fa-chevron-down" id="toggleIcon"></i> Filter
+        </button>
+    </p>
+    <div class="collapse" id="collapseSection">
+
+        <div class="card card-body">
+            <form id="filterForm">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group row">
+                    <label class="col-md-2 col-form-label" asp-for="UserId"></label>
+                    <div class="col-md-2 p-0">
+                        <select id="UserIdFilter" asp-for="UserIdFilter" asp-items="Html.GetEnumSelectList<FilterOptionN>()" class="form-select form-select-sm">
+                        </select>
+                    </div>
+                    <div class="col-md-3 p-0">
+                        <input id="UserId" asp-for="UserId" class="form-control form-control-sm" />
+                        <input id="UserIdTo" asp-for="UserIdTo" class="form-control form-control-sm" />
+                    </div>
+                </div>
+
+
+                <div class="form-group row">
+                    <label class="col-md-2 col-form-label" asp-for="UserName"></label>
+                    <div class="col-md-2 p-0">
+                        <select id="UserNameFilter" asp-for="UserNameFilter" asp-items="Html.GetEnumSelectList<FilterOption>()" class="form-select form-select-sm">
+                        </select>
+                    </div>
+                    <div class="col-md-3 p-0">
+                        <input id="UserName" asp-for="UserName" class="form-control form-control-sm" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-md-2 col-form-label" asp-for="FullName"></label>
+                    <div class="col-md-2 p-0">
+                        <select id="FullNameFilter" asp-for="FullNameFilter" asp-items="Html.GetEnumSelectList<FilterOption>()" class="form-select form-select-sm">
+                        </select>
+                    </div>
+                    <div class="col-md-3 p-0">
+                        <input id="FullName" asp-for="FullName" class="form-control form-control-sm" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-md-2 col-form-label" asp-for="RoleName"></label>
+                    <div class="col-md-2 p-0">
+                        <select id="RoleNameFilter" asp-for="RoleNameFilter" asp-items="Html.GetEnumSelectList<FilterOption>()" class="form-select form-select-sm">
+                        </select>
+                    </div>
+                    <div class="col-md-3 p-0">
+                        <input id="RoleName" asp-for="RoleName" class="form-control form-control-sm" />
+                    </div>
+                </div>
+
+
+
+                <div class="form-group row">
+                    <label class="col-md-2 col-form-label" asp-for="Status"></label>
+                    <div class="col-md-2 p-0">
+                        <select id="StatusFilter" asp-for="StatusFilter" asp-items="Html.GetEnumSelectList<FilterOption>()" class="form-select form-select-sm">
+                        </select>
+                    </div>
+                    <div class="col-md-3 p-0">
+                        <input id="Status" asp-for="Status" class="form-control form-control-sm" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-md-2 col-form-label" asp-for="CountryName"></label>
+                    <div class="col-md-2 p-0">
+                        <select id="CountryNameUtcFilter" asp-for="CountryNameFilter" asp-items="Html.GetEnumSelectList<FilterOption>()" class="form-select form-select-sm">
+                        </select>
+                    </div>
+                    <div class="col-md-3 p-0">
+                        <input id="CountryName" asp-for="CountryName" class="form-control form-control-sm" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-md-2 col-form-label" asp-for="Location"></label>
+                    <div class="col-md-2 p-0">
+                        <select id="LocationFilter" asp-for="LocationFilter" asp-items="Html.GetEnumSelectList<FilterOption>()" class="form-select form-select-sm">
+                        </select>
+                    </div>
+                    <div class="col-md-3 p-0">
+                        <input id="Location" asp-for="Location" class="form-control form-control-sm" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-md-2 col-form-label" asp-for="Notes"></label>
+                    <div class="col-md-2 p-0">
+                        <select id="NotesFilter" asp-for="NotesFilter" asp-items="Html.GetEnumSelectList<FilterOption>()" class="form-select form-select-sm">
+                        </select>
+                    </div>
+                    <div class="col-md-3 p-0">
+                        <input id="Notes" asp-for="Notes" class="form-control form-control-sm" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-md-2 col-form-label" asp-for="AdminId"></label>
+                    <div class="col-md-2 p-0">
+                        <select id="AdminIdFilter" asp-for="AdminIdFilter" asp-items="Html.GetEnumSelectList<FilterOption>()" class="form-select form-select-sm">
+                        </select>
+                    </div>
+                    <div class="col-md-3 p-0">
+                        <input id="AdminId" asp-for="AdminId" class="form-control form-control-sm" />
+                        <input id="AdminIdTo" asp-for="AdminIdTo" class="form-control form-control-sm" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-md-2 col-form-label" asp-for="PatchNumber"></label>
+                    <div class="col-md-2 p-0">
+                        <select id="PatchNumberFilter" asp-for="PatchNumberFilter" asp-items="Html.GetEnumSelectList<FilterOptionN>()" class="form-select form-select-sm">
+                        </select>
+                    </div>
+                    <div class="col-md-3 p-0">
+                        <input id="PatchNumber" asp-for="PatchNumber" class="form-control form-control-sm" />
+                        <input id="PatchNumberTo" asp-for="PatchNumberTo" class="form-control form-control-sm" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-md-2 col-form-label" asp-for="AdminCode"></label>
+                    <div class="col-md-2 p-0">
+                        <select id="AdminCodeFilter" asp-for="AdminCodeFilter" asp-items="Html.GetEnumSelectList<FilterOption>()" class="form-select form-select-sm">
+                        </select>
+                    </div>
+                    <div class="col-md-3 p-0">
+                        <input id="AdminCode" asp-for="AdminCode" class="form-control form-control-sm" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-md-2 col-form-label" asp-for="AdminUserName"></label>
+                    <div class="col-md-2 p-0">
+                        <select id="AdminUserNameFilter" asp-for="AdminUserNameFilter" asp-items="Html.GetEnumSelectList<FilterOption>()" class="form-select form-select-sm">
+                        </select>
+                    </div>
+                    <div class="col-md-3 p-0">
+                        <input id="AdminUserName" asp-for="AdminUserName" class="form-control form-control-sm" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-md-2 col-form-label" asp-for="AdminFullName"></label>
+                    <div class="col-md-2 p-0">
+                        <select id="AdminFullNameFilter" asp-for="AdminFullNameFilter" asp-items="Html.GetEnumSelectList<FilterOption>()" class="form-select form-select-sm">
+                        </select>
+                    </div>
+                    <div class="col-md-3 p-0">
+                        <input id="AdminFullName" asp-for="AdminFullName" class="form-control form-control-sm" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-md-4 p-0">
+                        <button type="reset" class="btn btn-primary">Reset</button>
+                    </div>
+                    <div class="col-md-3 p-0">
+                        <button type="button" id="btnSearch" class="btn btn-primary w-100">Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<br />
+<br />
+
+@Html.Raw(@ViewBag.htmltb)
+@section Scripts {
+    <script>
+        @Html.Raw(@ViewBag.script)
+    </script>
+}

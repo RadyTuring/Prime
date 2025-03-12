@@ -1,0 +1,84 @@
+﻿@model IEnumerable<CodePatch>
+@{
+    string title = "Codes Details";
+    ViewData["Title"] = title;
+    <partial name="_titleBar" model="@title" />
+}
+
+<div class="box-body">
+    <table id="_datatable" class="table table-hover dataTable" style="width:100%">
+
+        <thead>
+            <tr>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.Book.BookName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PatchDesc)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PatchDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PatchType)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UserName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NumberOfCodes)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                bool IsOneAssingedorPrinted = item.IsOneAssinged == true || item.IsPrinted==true;
+                // Add a CSS class based on the condition
+                <tr class="@(IsOneAssingedorPrinted ? "highlight" : "")">
+
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Book.BookName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PatchDesc)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PatchDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PatchType)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NumberOfCodes)
+                    </td>
+                    <td>
+                        <a href="@Url.Action("GetCSV", new {  id=item.Id })" title="Export to CSV">
+                            <i class="fas fa-file-csv"></i>
+                        </a>
+                        |
+                      
+                        <a href="@(IsOneAssingedorPrinted ? "#" : Url.Action("Edit", new { id = item.Id }))"
+                           title="Delete"
+                           class="@(IsOneAssingedorPrinted ? "disabled-link" : "")">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        |
+                        <a href="@(IsOneAssingedorPrinted ? "#" : Url.Action("DeleteCodes", new { id = item.Id }))"
+                           title="Delete"
+                           onclick="return @(IsOneAssingedorPrinted ? "false" : "confirm('Are you sure you want to delete this item?');")"
+                           class="@(IsOneAssingedorPrinted ? "disabled-link" : "")">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

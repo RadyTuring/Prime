@@ -1,0 +1,61 @@
+﻿@model UserUpdateRoleDto
+@{
+    string title = "Manage Users";
+    ViewData["Title"] = title;
+    <partial name="_titleBar" model="@title" />
+}
+<div class="row">
+    <br />
+    <div class="col-md-6">
+        <form asp-action="ManageUser">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+           
+            <div class="form-group row">
+                <label asp-for="UserName" class="col-md-4 col-form-label">
+                    User Name
+                    <span class="info-icon" data-toggle="tooltip" title="Choose The Role">
+                        <i class="fas fa-info-circle"></i>
+                    </span>
+                </label>
+                <div class="col-md-8">
+                    <input asp-for="UserName" class="form-control"  />
+                    <span asp-validation-for="UserName" class="text-danger" ></span>
+                   
+                </div>
+            </div>
+
+             <div class="form-group row">
+                <label asp-for="RoleId" class="col-md-4 col-form-label">
+                    Role
+                    <span class="info-icon" data-toggle="tooltip" title="Choose The Role">
+                        <i class="fas fa-info-circle"></i>
+                    </span>
+                </label>
+                <div class="col-md-8">
+                    <select asp-for="RoleId" class="form-control select2" style="width: 100%;" asp-items="ViewBag.roles" data-placeholder="Select Country">
+                        <option value="0">-- Select The Role --</option>
+                    </select>
+                    <span asp-validation-for="RoleId" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label   class="col-md-4 col-form-label">
+                    
+                </label>
+                <div class="col-md-8">
+                    <input type="submit" value="Change" class="btn btn-default" />
+                </div>
+            </div>
+
+            
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

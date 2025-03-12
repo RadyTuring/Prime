@@ -1,0 +1,73 @@
+﻿@model IEnumerable<Entities.QuestionType>
+@{
+    string title = "Question Types";
+    ViewData["Title"] = title;
+    <partial name="_titleBar" model="@title" />
+}
+
+<div class="row">
+    <div class="col-xs-12">
+
+        
+            <div class="box-header">
+                <p>
+                    <a asp-action="Create">Create New</a>
+                </p>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+            <table id="_datatable" class="table table-hover dataTable" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.TypeName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.QuestHeader)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.QuestionDesc)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TypeName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.QuestHeader)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.QuestionDesc)
+                                </td>
+
+                            <td style="text-align:right;">
+                                <a asp-action="Edit" asp-route-id="@item.TypeId" title="Edit">
+                                    <i class="fas fa-edit"></i>
+                                </a> |
+                                <a asp-action="Details" asp-route-id="@item.TypeId" title="Details">
+                                    <i class="fas fa-info-circle"></i>
+                                </a> |
+                                <a asp-action="Delete" asp-route-id="@item.TypeId" title="Delete">
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
+
+                            </td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                    </tfoot>
+                </table>
+            </div>
+       
+    </div>
+</div>
+
+
+

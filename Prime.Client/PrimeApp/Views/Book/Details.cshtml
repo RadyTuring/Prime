@@ -1,0 +1,108 @@
+﻿@model Entities.Book
+@{
+    string title = "Book Details";
+    ViewData["Title"] = title;
+    <partial name="_titleBar" model="@title" />
+}
+<div class="row">
+    <br />
+    <div class="col-md-6">
+
+        <div class="form-group row">
+            <div class="col-sm-4">Book ID</div>
+            <div class="col-sm-8">
+                <input asp-for="BookId" class="form-control" readonly />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-4">Book Name</div>
+            <div class="col-sm-8">
+                <input asp-for="BookName" class="form-control" readonly />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-sm-4">Prefix</div>
+            <div class="col-sm-8">
+                <input asp-for="Prefix" class="form-control" readonly />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-4">PPk Version</div>
+            <div class="col-sm-8">
+                <input asp-for="PPkVersion" class="form-control" readonly />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-4">Update Level ID</div>
+            <div class="col-sm-8">
+                <input asp-for="UpdateLevelId" class="form-control" readonly />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-4">PPK File Name</div>
+            <div class="col-sm-8">
+                <input asp-for="PPKFileName" class="form-control" readonly />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-4">Games File Name</div>
+            <div class="col-sm-8">
+                <input type="text" value="@Model.GamesFileName" class="form-control" readonly />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-4">Download link for Online viewer</div>
+            <div class="col-sm-8">
+                <input type="text" value="@Model.DownloadLink" class="form-control" readonly />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-4">Download link for Offline viewer</div>
+            <div class="col-sm-8">
+                <input type="text" value="@Model.LinkUrl" class="form-control" readonly />
+            </div>
+        </div>
+
+
+        <div class="form-group row">
+            <div class="col-sm-4">Default Image</div>
+            <div class="col-sm-8">
+                <input type="text" value="@Model.DefaultImage" class="form-control" readonly />
+                @if (ViewBag.bookimage != null)
+                {
+                    <div class="image-container mt-2">
+                        <img src="@ViewBag.bookimage" alt="Book image of @Model.BookName" class="img-thumbnail" style="max-width: 100%;">
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-sm-4">Games Image</div>
+            <div class="col-sm-8">
+                <input type="text" value="@Model.GamesImage" class="form-control" readonly />
+                @if (ViewBag.gamesimage != null)
+                {
+                    <div class="image-container mt-2">
+                        <img src="@ViewBag.gamesimage" alt="Games Image of @Model.BookName" class="img-thumbnail" style="max-width: 100%;">
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-4">Notes</div>
+            <div class="col-sm-8">
+                <input asp-for="Notes" class="form-control" readonly />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-8">
+                @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }, new { @class = "btn btn-primary" })
+                <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,216 @@
+﻿@model AdminTeachersFilter
+
+@{
+    string title = "Admin and Teachers";
+    ViewData["Title"] = title;
+    <partial name="_titleBar" model="@title" />
+}
+
+@{
+    var jsCode = ViewBag.filters;
+    var jsColumns = ViewBag.columns;
+    var jsActions = ViewBag.actions;
+}
+
+<div class="row">
+    <p>
+        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSection" aria-expanded="false" aria-controls="collapseSection" id="toggleButton">
+            <i class="fas fa-chevron-down" id="toggleIcon"></i> Filter
+        </button>
+    </p>
+    <div class="collapse" id="collapseSection">
+        <div class="card card-body">
+            <form id="filterForm">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <!-- AdminId Filter -->
+                <div class="form-group row">
+                    <label class="col-md-2 col-form-label" asp-for="AdminId"></label>
+                    <div class="col-md-2 p-0">
+                        <select id="AdminIdFilter" asp-for="AdminIdFilter" asp-items="Html.GetEnumSelectList<FilterOptionN>()" class="form-select form-select-sm"></select>
+                    </div>
+                    <div class="col-md-3 p-0">
+                        <input id="AdminId" asp-for="AdminId" class="form-control form-control-sm" />
+                    </div>
+                </div>
+
+                <!-- AdminCode Filter -->
+                <div class="form-group row">
+                    <label class="col-md-2 col-form-label" asp-for="AdminCode"></label>
+                    <div class="col-md-2 p-0">
+                        <select id="AdminCodeFilter" asp-for="AdminCodeFilter" asp-items="Html.GetEnumSelectList<FilterOption>()" class="form-select form-select-sm"></select>
+                    </div>
+                    <div class="col-md-3 p-0">
+                        <input id="AdminCode" asp-for="AdminCode" class="form-control form-control-sm" />
+                    </div>
+                </div>
+
+                <!-- AdminUserName Filter -->
+                <div class="form-group row">
+                    <label class="col-md-2 col-form-label" asp-for="AdminUserName"></label>
+                    <div class="col-md-2 p-0">
+                        <select id="AdminUserNameFilter" asp-for="AdminUserNameFilter" asp-items="Html.GetEnumSelectList<FilterOption>()" class="form-select form-select-sm"></select>
+                    </div>
+                    <div class="col-md-3 p-0">
+                        <input id="AdminUserName" asp-for="AdminUserName" class="form-control form-control-sm" />
+                    </div>
+                </div>
+
+                <!-- AdminFullName Filter -->
+                <div class="form-group row">
+                    <label class="col-md-2 col-form-label" asp-for="AdminFullName"></label>
+                    <div class="col-md-2 p-0">
+                        <select id="AdminFullNameFilter" asp-for="AdminFullNameFilter" asp-items="Html.GetEnumSelectList<FilterOption>()" class="form-select form-select-sm"></select>
+                    </div>
+                    <div class="col-md-3 p-0">
+                        <input id="AdminFullName" asp-for="AdminFullName" class="form-control form-control-sm" />
+                    </div>
+                </div>
+
+                <!-- TeacherId Filter -->
+                <div class="form-group row">
+                    <label class="col-md-2 col-form-label" asp-for="TeacherId"></label>
+                    <div class="col-md-2 p-0">
+                        <select id="TeacherIdFilter" asp-for="TeacherIdFilter" asp-items="Html.GetEnumSelectList<FilterOptionN>()" class="form-select form-select-sm"></select>
+                    </div>
+                    <div class="col-md-3 p-0">
+                        <input id="TeacherId" asp-for="TeacherId" class="form-control form-control-sm" />
+                    </div>
+                </div>
+
+                <!-- TeacherUserName Filter -->
+                <div class="form-group row">
+                    <label class="col-md-2 col-form-label" asp-for="TeacherUserName"></label>
+                    <div class="col-md-2 p-0">
+                        <select id="TeacherUserNameFilter" asp-for="TeacherUserNameFilter" asp-items="Html.GetEnumSelectList<FilterOption>()" class="form-select form-select-sm"></select>
+                    </div>
+                    <div class="col-md-3 p-0">
+                        <input id="TeacherUserName" asp-for="TeacherUserName" class="form-control form-control-sm" />
+                    </div>
+                </div>
+
+                <!-- TeacherFullName Filter -->
+                <div class="form-group row">
+                    <label class="col-md-2 col-form-label" asp-for="TeacherFullName"></label>
+                    <div class="col-md-2 p-0">
+                        <select id="TeacherFullNameFilter" asp-for="TeacherFullNameFilter" asp-items="Html.GetEnumSelectList<FilterOption>()" class="form-select form-select-sm"></select>
+                    </div>
+                    <div class="col-md-3 p-0">
+                        <input id="TeacherFullName" asp-for="TeacherFullName" class="form-control form-control-sm" />
+                    </div>
+                </div>
+
+                <!-- CountryName Filter -->
+                <div class="form-group row">
+                    <label class="col-md-2 col-form-label" asp-for="CountryName"></label>
+                    <div class="col-md-2 p-0">
+                        <select id="CountryNameFilter" asp-for="CountryNameFilter" asp-items="Html.GetEnumSelectList<FilterOption>()" class="form-select form-select-sm"></select>
+                    </div>
+                    <div class="col-md-3 p-0">
+                        <input id="CountryName" asp-for="CountryName" class="form-control form-control-sm" />
+                    </div>
+                </div>
+
+                <!-- Status Filter -->
+                <div class="form-group row">
+                    <label class="col-md-2 col-form-label" asp-for="Status"></label>
+                    <div class="col-md-2 p-0">
+                        <select id="StatusFilter" asp-for="StatusFilter" asp-items="Html.GetEnumSelectList<FilterOption>()" class="form-select form-select-sm"></select>
+                    </div>
+                    <div class="col-md-3 p-0">
+                        <input id="Status" asp-for="Status" class="form-control form-control-sm" />
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="form-group row">
+                    <div class="col-md-4 p-0">
+                        <button type="reset" class="btn btn-primary">Reset</button>
+                    </div>
+                    <div class="col-md-3 p-0">
+                        <button type="button" id="btnSearch" class="btn btn-primary w-100">Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<br />
+
+<div class="row">
+    <div class="col-md-12">
+        <table id="users" class="table table-hover dataTable" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Admin Id</th>
+                    <th>Admin Code</th>
+                    <th>Admin Username</th>
+                    <th>Admin Full Name</th>
+                    <th>Teacher Id</th>
+                    <th>Teacher Username</th>
+                    <th>Teacher Full Name</th>
+                    <th>Country</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            var table = $('#users').DataTable({
+                "processing": true,
+                "serverSide": true,
+                "ajax": {
+                    "url": "/Manager/FilterAdminTeachers", // Change the URL as per your controller
+                    "type": "POST",
+                    "datatype": "json",
+        @Html.Raw(jsCode)
+                        },
+            "columnDefs": [{
+                "targets": '_all',
+                "className": 'dt-center'
+            }],
+        @Html.Raw(jsColumns),
+            "pageLength": 10,
+            "lengthMenu": [[5, 10, 15, 20], [5, 10, 15, 20]],
+          "dom": "<'row'<'col-12'B>>" + // Row for buttons, full width
+            "<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>" + // Row for lengthMenu and search
+            "<'row'<'col-12'tr>>" + // Row for the table, full width
+        "<'row'<'col-sm-12 col-md-7'i><'col-sm-12 col-md-5'p>>", // Row for info and paging, both on the same row
+
+            "buttons": [
+            'csv',
+            'pdf',
+            'excel',
+            'print',
+            'copy',
+            {
+                extend: 'colvis',
+                text: 'Column Visibility'
+            },
+            {
+                extend: 'colvisRestore',
+                text: 'Restore'
+            }
+        ]
+                       });
+
+        @Html.Raw(jsActions)
+
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            document.addEventListener('keydown', function (event) {
+                if (event.key === 'Enter') {
+                    document.getElementById('btnSearch').click();
+                }
+            });
+
+
+        });
+    </script>
+}

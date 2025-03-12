@@ -1,0 +1,72 @@
+﻿@model IEnumerable<StudentsClassessBooksV>
+
+@{
+    string title = "Books";
+    ViewData["Title"] = title;
+    <partial name="_titleBar" model="@title" />
+}
+
+<div class="box-body">
+    <table id="_datatable" class="table table-hover dataTable" style="width:100%">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.StudentId)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.UserName)
+                </th>
+               
+                <th>
+                    @Html.DisplayNameFor(model => model.FullName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BookName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ClassCode)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AssignDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AdminId)
+                </th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TeacherId)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FullName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BookName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ClassCode)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AssignDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AdminId)
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+        </tfoot>
+    </table>
+</div>
+

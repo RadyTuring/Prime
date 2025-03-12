@@ -1,0 +1,108 @@
+﻿@model BookFilesVM
+@{
+    string title = "Upload Book Files ";
+    ViewData["Title"] = title;
+    <partial name="_titleBar" model="@title" />
+}
+<div class="row">
+    <div class="col-md-6">
+        <form id="uploadForm" action="UploadFiles" enctype="multipart/form-data" method="post">
+            <div class="form-group">
+                @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            </div>
+
+            <input asp-for="BookId" type="hidden" class="form-control" />
+
+            <div class="form-group row">
+                <label asp-for="BookName" class="col-md-3 col-form-label">Book Name</label>
+                <div class="col-md-9">
+                    <input asp-for="BookName" class="form-control" readonly />
+                </div>
+            </div>
+
+            <!-- PPK File Upload -->
+            <div class="form-group row">
+                <label asp-for="PPKFile" class="col-md-3 col-form-label">PPK File</label>
+                <div class="col-md-6">
+                    <input type="file" asp-for="PPKFile" accept=".ppk" class="form-control-file" id="ppkFileInput" />
+                </div>
+                
+            </div>
+
+            <!-- Games File Upload -->
+            <div class="form-group row">
+                <label asp-for="GamesFileName" class="col-md-3 col-form-label">Games File</label>
+                <div class="col-md-6">
+                    <input type="file" asp-for="GamesFileName" accept=".ppk" class="form-control-file" id="gamesFileInput" />
+                </div>
+                
+            </div>
+
+            <!-- Default Image Upload -->
+            <div class="form-group row">
+                <label asp-for="DefaultImage" class="col-md-3 col-form-label">Default Image</label>
+                <div class="col-md-6">
+                    <input type="file" asp-for="DefaultImage" accept=".jpg,.jpeg,.png" class="form-control-file" id="defaultImageInput" />
+                </div>
+                
+            </div>
+
+            <!-- Games Image Upload -->
+            <div class="form-group row">
+                <label asp-for="GamesImage" class="col-md-3 col-form-label">Games Image</label>
+                <div class="col-md-6">
+                    <input type="file" asp-for="GamesImage" accept=".jpg,.jpeg,.png" class="form-control-file" id="gamesImageInput" />
+                </div>
+                
+            </div>
+            <div class="form-group row">
+                <label asp-for="GamesImage" class="col-md-3 col-form-label">Games Image</label>
+                <div class="col-md-6">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+                <div class="col-md-3">
+                    <div class="progress d-none" id="gamesImageProgressWrapper">
+                        <div class="progress-bar bg-success" role="progressbar" style="width: 0%;" id="gamesImageProgressBar"></div>
+                    </div>
+                </div>
+            </div>
+             
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    const connection = new signalR.HubConnectionBuilder()
+        .withUrl("/uploadProgressHub")
+        .build();
+
+    connection.start().then(() => {
+        console.log("SignalR Connected.");
+        // Store the connection ID in a hidden input or pass it when submitting the form
+        document.getElementById("uploadForm").addEventListener("submit", function (e) {
+            const connectionId = connection.connectionId;
+            const action = this.action + "?connectionId=" + encodeURIComponent(connectionId);
+            this.setAttribute("action", action);
+        });
+    }).catch(function (err) {
+        return console.error(err.toString());
+    });
+
+    connection.on("ReceiveProgress", function (percentComplete) {
+        // Update progress bars based on the file type
+        document.querySelectorAll(".progress-bar").forEach(progressBar => {
+            progressBar.style.width = percentComplete + "%";
+            progressBar.parentElement.classList.remove("d-none");
+        });
+    });
+});
+
+</script>
+

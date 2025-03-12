@@ -1,0 +1,105 @@
+﻿@model UserVM
+
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_Login.cshtml";
+}
+
+<div class="form-content">
+
+    <div class="signup-form">
+        <div class="title">Prime Signup</div>
+
+        <form asp-action="Create" asp-controller="Account" enctype="multipart/form-data">
+            <div class="input-boxes">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                   
+                    <input asp-for="UserName" placeholder="Enter your user name"  class="form-control" oninput="CheckValidity()" />
+                    <span asp-validation-for="UserName" class="text-danger"></span>
+                    <span id="usernameAvailabilityMessage" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                   
+                    <input asp-for="FullName" placeholder="Enter your full name" class="form-control" />
+                    <span asp-validation-for="FullName" class="text-danger"></span>
+                </div>
+              
+
+                <div class="form-group">
+                    <label asp-for="ImageFile">Book Image</label>
+                    <div class="custom-file-input" placeholder="Book Image">
+                        <input type="file" asp-for="ImageFile" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                   
+                    <select asp-for="CountryId" class="form-control select2" placeholder="Choose your country" style="width: 100%;" asp-items="ViewBag.countries" data-placeholder="Select Country">
+                    </select>
+                    <span asp-validation-for="CountryId" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    
+                    <select asp-for="TimeZoneId" class="form-control select2" placeholder="Choose your time zone" style="width: 100%;" asp-items="ViewBag.timezones" data-placeholder="Select Time Zone">
+                    </select>
+                    <span asp-validation-for="TimeZoneId" class="text-danger"></span>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-md-6">
+                       
+                        <input asp-for="Password" placeholder="password" class="form-control" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <input asp-for="ConfirmPassword" placeholder="Confirm password" class="form-control" />
+                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="button input-box">
+                    
+                        <input type="submit" class="btnLogin" value="Create">
+                   
+                </div>
+                <div class="text sign-up-text">Already have an account? <a asp-action="Login"> Login</a></div>
+            </div>
+        </form>
+
+
+    </div>
+
+
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        function CheckValidity() {
+            var username = document.getElementById("UserName").value;
+
+
+
+             
+                $.ajax({
+                    url: '/Account/CheckValidity',
+                    type: 'GET',
+                    data: { username: username },
+                    success: function (result) {
+                        if (result.isAvailable) {
+                            document.getElementById("usernameAvailabilityMessage").innerHTML = "Username is available";
+                        }
+                        else {
+                            document.getElementById("usernameAvailabilityMessage").innerHTML = "Username is not available";
+                        }
+                    },
+                    error: function () {
+                        console.error('Error occurred while checking username availability.');
+                    }
+                });
+             
+        }
+
+    </script>
+}

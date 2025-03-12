@@ -1,0 +1,124 @@
+﻿@model UserUpdateDto
+@{
+    
+}
+<form asp-action="Edit" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-md-8">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="UserName" class="control-label"></label>
+                <input asp-for="UserName" class="form-control" readonly />
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FullName" class="control-label"></label>
+                <input asp-for="FullName" class="form-control" />
+                <span asp-validation-for="FullName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ImageFile" class="control-label"></label>
+                <input type="file" asp-for="ImageFile" class="form-control" placeholder="Book Image" />
+                <span asp-validation-for="ImageFile" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+
+                <label asp-for="CountryId" class="control-label"></label>
+
+                <select asp-for="CountryId" class="form-control select2" style="width: 100%;" asp-items="ViewBag.countries" data-placeholder="Select Country">
+                </select>
+                <span asp-validation-for="CountryId" class="text-danger"></span>
+            </div>
+
+            
+
+            <div class="form-group">
+                <br />
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+            @if (TempData["_backurl"].ToString() == "p")
+            {
+                <div class="form-group">
+                    <br />
+                    <a asp-action="ResetPassword" class="btn btn-primary">Change Password</a>
+                </div>
+            }
+            
+        </div>
+        <div class="col-md-4">
+
+            @if (@ViewBag.userimage != null)
+            {
+                <div class="js-image-container text-center">
+                    <img src="@ViewBag.userimage" alt="@Model.FullName" style="width: 200px; height: 200px; margin-right: 10px;" class="img-fluid rounded-circle mb-2">
+                    <!-- Add data-username to the button -->
+                    <button type="button" class="btn btn-danger js-delete-image" data-username="@Model.UserName">
+                        <i class="fas fa-trash-alt"></i> Delete
+                    </button>
+                </div>
+            }
+            else
+            {
+                <img src="~/images/person.jpg" class="rounded-circle" style="width: 40px; height: 40px; margin-right: 10px;" alt="@Model.FullName">
+            }
+            
+        </div>
+
+
+
+    </div>
+</form>
+@section Scripts {
+    <script>
+        $(document).on('click', '.js-delete-image', function (event) {
+            // Prevent default form submission
+            event.preventDefault();
+
+            // Get the username from the button's data attribute
+            const userName = $(this).data('username');
+
+            const swal = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-danger mx-2',
+                    cancelButton: 'btn btn-light'
+                },
+                buttonsStyling: false
+            });
+
+            swal.fire({
+                title: 'Are you sure?',
+                text: 'This action will permanently delete the image.',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Delete',
+                cancelButtonText: 'Cancel',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: '@Url.Action("DeleteProfileImage", "Account")',
+                        method: 'POST',
+                        data: { userName: userName }, // Pass the userName as data
+                        success: function (response) {
+                            if (response.success) {
+                                toastr.success(response.message);
+                                // Remove the image container from the DOM
+                                $('.js-image-container').remove();
+                            } else {
+                                toastr.error(response.message);
+                            }
+                        },
+                        error: function () {
+                            toastr.error('An error occurred while deleting the image.');
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+
+
+}
+

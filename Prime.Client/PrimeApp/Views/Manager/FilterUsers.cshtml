@@ -1,0 +1,381 @@
+﻿@model UserFilter
+@{
+    string title = "Users";
+    ViewData["Title"] = title;
+    <partial name="_titleBar" model="@title" />
+}
+@{
+    var jsCode = ViewBag.filters;
+    var jsColumns = ViewBag.columns;
+    var jsActions = ViewBag.actions;
+}
+
+
+<div class="row">
+
+
+    <p>
+        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSection" aria-expanded="false" aria-controls="collapseSection" id="toggleButton">
+
+            <i class="fas fa-chevron-down" id="toggleIcon"></i> Filter
+        </button>
+    </p>
+    <div class="collapse" id="collapseSection">
+
+        <div class="card card-body">
+            <form id="filterForm">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group row">
+                    <label class="col-md-2 col-form-label" asp-for="UserId"></label>
+                    <div class="col-md-2 p-0">
+                        <select id="UserIdFilter" asp-for="UserIdFilter" asp-items="Html.GetEnumSelectList<FilterOptionN>()" class="form-select form-select-sm">
+                        </select>
+                    </div>
+                    <div class="col-md-3 p-0">
+                        <input id="UserId" asp-for="UserId" class="form-control form-control-sm" />
+                        <input id="UserIdTo" asp-for="UserIdTo" class="form-control form-control-sm" />
+                    </div>
+                </div>
+
+
+                <div class="form-group row">
+                    <label class="col-md-2 col-form-label" asp-for="UserName"></label>
+                    <div class="col-md-2 p-0">
+                        <select id="UserNameFilter" asp-for="UserNameFilter" asp-items="Html.GetEnumSelectList<FilterOption>()" class="form-select form-select-sm">
+                        </select>
+                    </div>
+                    <div class="col-md-3 p-0">
+                        <input id="UserName" asp-for="UserName" class="form-control form-control-sm" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-md-2 col-form-label" asp-for="FullName"></label>
+                    <div class="col-md-2 p-0">
+                        <select id="FullNameFilter" asp-for="FullNameFilter" asp-items="Html.GetEnumSelectList<FilterOption>()" class="form-select form-select-sm">
+                        </select>
+                    </div>
+                    <div class="col-md-3 p-0">
+                        <input id="FullName" asp-for="FullName" class="form-control form-control-sm" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-md-2 col-form-label" asp-for="RoleName"></label>
+                    <div class="col-md-2 p-0">
+                        <select id="RoleNameFilter" asp-for="RoleNameFilter" asp-items="Html.GetEnumSelectList<FilterOption>()" class="form-select form-select-sm">
+                        </select>
+                    </div>
+                    <div class="col-md-3 p-0">
+                        <input id="RoleName" asp-for="RoleName" class="form-control form-control-sm" />
+                    </div>
+                </div>
+
+
+
+                <div class="form-group row">
+                    <label class="col-md-2 col-form-label" asp-for="Status"></label>
+                    <div class="col-md-2 p-0">
+                        <select id="StatusFilter" asp-for="StatusFilter" asp-items="Html.GetEnumSelectList<FilterOption>()" class="form-select form-select-sm">
+                        </select>
+                    </div>
+                    <div class="col-md-3 p-0">
+                        <input id="Status" asp-for="Status" class="form-control form-control-sm" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-md-2 col-form-label" asp-for="CountryName"></label>
+                    <div class="col-md-2 p-0">
+                        <select id="CountryNameUtcFilter" asp-for="CountryNameFilter" asp-items="Html.GetEnumSelectList<FilterOption>()" class="form-select form-select-sm">
+                        </select>
+                    </div>
+                    <div class="col-md-3 p-0">
+                        <input id="CountryName" asp-for="CountryName" class="form-control form-control-sm" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-md-2 col-form-label" asp-for="Location"></label>
+                    <div class="col-md-2 p-0">
+                        <select id="LocationFilter" asp-for="LocationFilter" asp-items="Html.GetEnumSelectList<FilterOption>()" class="form-select form-select-sm">
+                        </select>
+                    </div>
+                    <div class="col-md-3 p-0">
+                        <input id="Location" asp-for="Location" class="form-control form-control-sm" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-md-2 col-form-label" asp-for="Notes"></label>
+                    <div class="col-md-2 p-0">
+                        <select id="NotesFilter" asp-for="NotesFilter" asp-items="Html.GetEnumSelectList<FilterOption>()" class="form-select form-select-sm">
+                        </select>
+                    </div>
+                    <div class="col-md-3 p-0">
+                        <input id="Notes" asp-for="Notes" class="form-control form-control-sm" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-md-2 col-form-label" asp-for="AdminId"></label>
+                    <div class="col-md-2 p-0">
+                        <select id="AdminIdFilter" asp-for="AdminIdFilter" asp-items="Html.GetEnumSelectList<FilterOption>()" class="form-select form-select-sm">
+                        </select>
+                    </div>
+                    <div class="col-md-3 p-0">
+                        <input id="AdminId" asp-for="AdminId" class="form-control form-control-sm" />
+                        <input id="AdminIdTo" asp-for="AdminIdTo" class="form-control form-control-sm" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-md-2 col-form-label" asp-for="PatchNumber"></label>
+                    <div class="col-md-2 p-0">
+                        <select id="PatchNumberFilter" asp-for="PatchNumberFilter" asp-items="Html.GetEnumSelectList<FilterOptionN>()" class="form-select form-select-sm">
+                        </select>
+                    </div>
+                    <div class="col-md-3 p-0">
+                        <input id="PatchNumber" asp-for="PatchNumber" class="form-control form-control-sm" />
+                        <input id="PatchNumberTo" asp-for="PatchNumberTo" class="form-control form-control-sm" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-md-2 col-form-label" asp-for="AdminCode"></label>
+                    <div class="col-md-2 p-0">
+                        <select id="AdminCodeFilter" asp-for="AdminCodeFilter" asp-items="Html.GetEnumSelectList<FilterOption>()" class="form-select form-select-sm">
+                        </select>
+                    </div>
+                    <div class="col-md-3 p-0">
+                        <input id="AdminCode" asp-for="AdminCode" class="form-control form-control-sm" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-md-2 col-form-label" asp-for="AdminUserName"></label>
+                    <div class="col-md-2 p-0">
+                        <select id="AdminUserNameFilter" asp-for="AdminUserNameFilter" asp-items="Html.GetEnumSelectList<FilterOption>()" class="form-select form-select-sm">
+                        </select>
+                    </div>
+                    <div class="col-md-3 p-0">
+                        <input id="AdminUserName" asp-for="AdminUserName" class="form-control form-control-sm" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-md-2 col-form-label" asp-for="AdminFullName"></label>
+                    <div class="col-md-2 p-0">
+                        <select id="AdminFullNameFilter" asp-for="AdminFullNameFilter" asp-items="Html.GetEnumSelectList<FilterOption>()" class="form-select form-select-sm">
+                        </select>
+                    </div>
+                    <div class="col-md-3 p-0">
+                        <input id="AdminFullName" asp-for="AdminFullName" class="form-control form-control-sm" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-md-4 p-0">
+                        <button type="reset" class="btn btn-primary">Reset</button>
+                    </div>
+                    <div class="col-md-3 p-0">
+                        <button type="button" id="btnSearch" class="btn btn-primary w-100">Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<br />
+
+<div class="row">
+    <div class="col-md-12">
+
+        <table id="users" class="table table-hover dataTable" style="width:100%">
+            <thead>
+
+                <tr>
+                    <th>User Id</th>
+                    <th>User Name</th>
+                    <th>Full Name</th>
+                    <th>Role</th>
+                    <th>Status</th>
+                    <th>Country </th>
+                    <th>Admin User Name</th>
+                    <th>Admin Full Name</th>
+                    <th>Links</th>
+                   
+                </tr>
+            </thead>
+
+
+        </table>
+    </div>
+</div>
+@section Scripts {
+
+    <script>
+
+        $(document).ready(function () {
+            var role = @Html.Raw(ViewBag.Role);
+            var table = $('#users').DataTable({
+                "processing": true,
+                "serverSide": true,
+                "ajax": {
+                    "url": "/Manager/FilterUsers",
+                    "type": "POST",
+                    "datatype": "json",
+        @Html.Raw(jsCode)
+                                                                },
+            "columnDefs": [{
+                "targets": '_all',
+                "className": 'dt-center'
+            }],
+        @Html.Raw(jsColumns),
+            "pageLength": 10, // Default page length
+            "lengthMenu": [[5, 10, 15, 20], [5, 10, 15, 20]],
+
+            "dom": "<'row'<'col-12'B>>" + // Row for buttons, full width
+            "<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>" + // Row for lengthMenu and search
+            "<'row'<'col-12'tr>>" + // Row for the table, full width
+        "<'row'<'col-sm-12 col-md-7'i><'col-sm-12 col-md-5'p>>", // Row for info and paging, both on the same row
+
+            "buttons": [
+            {
+                extend: 'csvHtml5',
+                text: 'CSV',
+                exportOptions: {
+                    columns: ':not(:last-child):not(:nth-last-child(2))' // Exclude last 2
+                }
+            },
+            {
+                extend: 'excelHtml5',
+                text: 'Excel',
+                exportOptions: {
+                    columns: ':not(:last-child):not(:nth-last-child(2))' // Exclude last 2
+                }
+            },
+            {
+                extend: 'pdfHtml5',
+                text: 'PDF',
+                exportOptions: {
+                    columns: ':not(:last-child):not(:nth-last-child(2))' // Exclude last 2
+                }
+            },
+            {
+                extend: 'print',
+                text: 'Print',
+                exportOptions: {
+                    columns: ':not(:last-child):not(:nth-last-child(2))' // Exclude last 2
+                }
+            },
+            {
+                extend: 'copy',
+                text: 'Copy',
+                exportOptions: {
+                    columns: ':not(:last-child):not(:nth-last-child(2))' // Exclude last 2
+                }
+            },
+           
+            {
+                extend: 'colvis',
+                text: 'Column Visibility'
+            },
+            {
+                extend: 'colvisRestore',
+                text: 'Restore'
+            }
+        ]
+     });
+       
+        @Html.Raw(jsActions)
+
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            document.addEventListener('keydown', function (event) {
+                if (event.key === 'Enter') {
+                    document.getElementById('btnSearch').click();
+                }
+            });
+
+
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const userIdFilter = document.getElementById('UserIdFilter');
+            const userIdTo = document.getElementById('UserIdTo');
+            const patchNumberFilter = document.getElementById('PatchNumberFilter');
+            const patchNumberTo = document.getElementById('PatchNumberTo');
+            const adminIdFilter = document.getElementById('AdminIdFilter');
+            const adminIdTo = document.getElementById('AdminIdTo');
+            function toggleUserIdTo() {
+                if (userIdFilter.value === '6') { // Assuming 6 corresponds to 'Between'
+                    userIdTo.style.display = 'block';
+                } else {
+                    userIdTo.style.display = 'none';
+                }
+            }
+            function togglePatchNumberTo() {
+                if (patchNumberFilter.value === '6') { // Assuming 6 corresponds to 'Between'
+                    patchNumberTo.style.display = 'block';
+                } else {
+                    patchNumberTo.style.display = 'none';
+                }
+            } function toggleAdminIdTo() {
+                if (adminIdFilter.value === '6') { // Assuming 6 corresponds to 'Between'
+                    adminIdTo.style.display = 'block';
+                } else {
+                    adminIdTo.style.display = 'none';
+                }
+            }
+            toggleUserIdTo()
+            togglePatchNumberTo();
+            toggleAdminIdTo()
+            // Add event listener to toggle the visibility when the value changes
+            userIdFilter.addEventListener('change', toggleUserIdTo);
+            patchNumberFilter.addEventListener('change', togglePatchNumberTo);
+            adminIdFilter.addEventListener('change', toggleAdminIdTo);
+        });
+        function generateLinks(roleName, userId) {
+            let links = '<div class="btn-group">';
+            links += '<button type="button" class="btn btn-info btn-flat dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Go to</button>';
+            links += '<ul class="dropdown-menu" style="margin-top: 0px; padding: 0;">';
+
+            switch (roleName) {
+                case 'admin':
+                    links += '<li><a class="dropdown-item" href="/Admin/ResetPassword">Reset Password</a></li>';
+                    links += '<div class="dropdown-divider"></div>';
+                    links += '<li><a class="dropdown-item" href="/Admin/ManageUsers">Manage Users</a></li>';
+                    break;
+                case 'manager':
+                    links += '<li><a class="dropdown-item" href="/Manager/ManageProjects">Manage Projects</a></li>';
+                    links += '<div class="dropdown-divider"></div>';
+                    links += '<li><a class="dropdown-item" href="/Manager/ViewReports">View Reports</a></li>';
+                    break;
+                case 'teacher':
+                    links += '<li><a class="dropdown-item" href="/Teacher/GetClasses">Classes</a></li>';
+                    links += '<div class="dropdown-divider"></div>';
+                    links += '<li><a class="dropdown-item" href="/Teacher/GetStudents">Students</a></li>';
+                    break;
+                case 'student':
+                    links += '<li><a class="dropdown-item" href="/Student/ViewCourses">View Courses</a></li>';
+                    links += '<div class="dropdown-divider"></div>';
+                    links += '<li><a class="dropdown-item" href="/Student/ViewAssignments">View Assignments</a></li>';
+                    break;
+                default:
+                    links += `<li><a class="dropdown-item" href="/Account/View/${userId}">View Details</a></li>`;
+                    break;
+            }
+
+            links += '</ul>';
+            links += '</div>';
+            return links;
+        }
+
+    </script>
+}

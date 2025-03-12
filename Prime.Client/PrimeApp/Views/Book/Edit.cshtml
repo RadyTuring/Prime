@@ -1,0 +1,114 @@
+﻿ @model Book
+@{
+    string title = "Edit Book";
+    ViewData["Title"] = title;
+    <partial name="_titleBar" model="@title" />
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Edit">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="BookId" />
+            <div class="form-group row">
+                <label asp-for="BookName" class="col-md-4 col-form-label"></label>
+                <div class="col-md-8">
+                    <input asp-for="BookName" class="form-control" />
+                    <span asp-validation-for="BookName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="PPkVersion" class="col-md-4 col-form-label"></label>
+                <div class="col-md-8">
+                    <input asp-for="PPkVersion" class="form-control" />
+                    <span asp-validation-for="PPkVersion" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+
+                <label asp-for="UpdateLevelId" class="col-md-4 col-form-label"></label>
+                <div class="col-md-8">
+                    <select asp-for="UpdateLevelId" class="form-control select2" asp-items="ViewBag.updatelevels">
+                    </select>
+                    <span asp-validation-for="UpdateLevelId" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="DefaultImage" class="col-md-4 col-form-label"></label>
+                <div class="col-md-8">
+                    <input asp-for="DefaultImage" class="form-control" />
+                    <span asp-validation-for="DefaultImage" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="PPKFileName" class="col-md-4 col-form-label"></label>
+                <div class="col-md-8">
+                    <input asp-for="PPKFileName" class="form-control" />
+                    <span asp-validation-for="PPKFileName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="GamesFileName" class="col-md-4 col-form-label"></label>
+                <div class="col-md-8">
+                    <input asp-for="GamesFileName" class="form-control" />
+                    <span asp-validation-for="GamesFileName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="GamesImage" class="col-md-4 col-form-label"></label>
+                <div class="col-md-8">
+                    <input asp-for="GamesImage" class="form-control" />
+                    <span asp-validation-for="GamesImage" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label asp-for="Prefix" class="col-md-4 col-form-label"></label>
+                <div class="col-md-8">
+                    <input asp-for="Prefix" class="form-control" />
+                    <span asp-validation-for="Prefix" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="DownloadLink" class="col-md-4 col-form-label"></label>
+                <div class="col-md-8">
+                    <input asp-for="DownloadLink" class="form-control" />
+                    <span asp-validation-for="DownloadLink" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="LinkUrl" class="col-md-4 col-form-label"></label>
+                <div class="col-md-8">
+                    <input asp-for="LinkUrl" class="form-control" />
+                    <span asp-validation-for="LinkUrl" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Notes" class="col-md-4 col-form-label"></label>
+                <div class="col-md-8">
+                    <input asp-for="Notes" class="form-control" />
+                    <span asp-validation-for="Notes" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-4 col-form-label"></label>
+                <div class="col-md-8">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+}

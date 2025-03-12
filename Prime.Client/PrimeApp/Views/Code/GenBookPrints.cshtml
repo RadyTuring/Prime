@@ -1,0 +1,94 @@
+﻿@model BookPrintDto
+ 
+@{
+    string title = "Generate BookCodes";
+    ViewData["Title"] = title;
+    <partial name="_titleBar" model="@title" />
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="GenBookPrints">
+            <div class="form-group row">
+                <label class="col-md-4 col-form-label"></label>
+                <div class="col-md-8">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                </div>
+               
+            </div>
+
+            <div class="form-group row">
+                <label for="BookId" class="col-md-4 col-form-label">Select Book:</label>
+                <div class="col-md-8">
+                    <select asp-for="BookId" class="form-control select2" asp-items="ViewBag.books">
+                        <option value="">-- Select Book --</option>
+                    </select>
+                    <span asp-validation-for="BookId" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="BookServices" class="col-md-4 col-form-label">Select Services:</label>
+                <div class="col-md-8">
+                    <select id="multi-search-select" asp-for="BookServices" class="form-select" multiple="multiple">
+                    
+                        @foreach (var service in ViewBag.bookservices)
+                        {
+                            if (@service.Value!="0")
+                            {
+                                <option value="@service.Value" selected>@service.Text</option>
+                            }
+                           
+                        }
+                    </select>
+                    <span asp-validation-for="BookServices" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="NumberOfCodes" class="col-md-4 col-form-label">Number of Codes:</label>
+                <div class="col-md-8">
+                    <input asp-for="NumberOfCodes" class="form-control" />
+                    <span asp-validation-for="NumberOfCodes" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="IncludeEkit" class="col-md-4 col-form-label">Include Ekit</label>
+                    <div class="col-md-8">
+                        <input asp-for="IncludeEkit" checked class="form-check-input" />
+                        <label class="form-check-label" for="IncludeEkit">@Html.DisplayNameFor(model => model.IncludeEkit)</label>
+                    </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="PatchDesc" class="col-md-4 col-form-label">Patch Description:</label>
+                <div class="col-md-8">
+                    <input asp-for="PatchDesc" class="form-control" />
+                    <span asp-validation-for="PatchDesc" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="" class="col-md-4 col-form-label"></label>
+                <div class="col-md-8">
+                    <button type="submit" class="btn btn-primary btn-block">Generate</button>
+                    <a asp-action="GenBookPrints" class="btn btn-primary btn-block">New</a>
+                   
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div>
+    <a asp-action="SearchCode">Search</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    
+}
+   
+ 

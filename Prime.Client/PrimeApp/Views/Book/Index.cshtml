@@ -1,0 +1,71 @@
+﻿@model IEnumerable<Book>
+
+@{
+    string title = "Books";
+    ViewData["Title"] = title;
+    <partial name="_titleBar" model="@title" />
+}
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<div class="box-body">
+    <table id="_datatable" class="table table-hover dataTable" style="width:100%">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.BookName)
+                </th>
+                
+                <th>
+                    @Html.DisplayNameFor(model => model.PPkVersion)
+                </th>
+                <th>
+                    Update Level 
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Prefix)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BookName)
+                    </td>
+                   
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PPkVersion)
+                    </td>
+                    <td>
+                          @item.UpdateLevel.UpdateLevelName
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Prefix)
+                    </td>
+                    <td style="text-align:right;">
+                        <a asp-action="Edit" asp-route-id="@item.BookId" title="Edit">
+                            <i class="fas fa-edit"></i>
+                        </a> |
+                        <a asp-action="Details" asp-route-id="@item.BookId" title="Details">
+                            <i class="fas fa-info-circle"></i>
+                        </a> |
+                        <a asp-action="Delete" asp-route-id="@item.BookId" title="Delete">
+                            <i class="fas fa-trash-alt"></i>
+                        </a>|
+                        <a asp-action="UploadFiles" asp-route-id="@item.BookId" title="Upload File">
+                            <i class="fas fa-upload"></i>
+                           
+                        </a>
+                    </td>
+                
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+        </tfoot>
+    </table>
+</div>
+

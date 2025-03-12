@@ -1,0 +1,98 @@
+﻿@model IEnumerable<Notification>
+
+@{
+
+    ViewData["Title"] = "Notification";
+    ViewData["h1"] = "Prime";
+    ViewData["h2"] = "Notification";
+    ViewData["h3"] = "Prime";
+    ViewData["h4"] = "Notification";
+    ViewData["h5"] = "Index";
+
+    var readStatus = ViewBag.readStatus as string;
+}
+ 
+
+<div class="box-header">
+    <div class="col-sm-5">
+        <p>
+            <a asp-action="Create">Create New</a>
+        </p>
+    </div>
+
+    <div class="box-body">
+
+        <form asp-action="index" class="form-horizontal">
+            <div class="col-sm-12" style="text-align :right">
+                <div class="form-group" >
+                    <label>
+                        @Html.DropDownList("readStatus",
+                                 new SelectList(new[]
+                                 {
+                        new SelectListItem { Text = "Un Read", Value = "1" },
+                        new SelectListItem { Text = "Read", Value = "2" },
+                        new SelectListItem { Text = "All", Value = "3" }
+                        }, "Value", "Text", readStatus),
+                                 new { onchange = "this.form.submit()" })
+                    </label>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
+        <table id="_datatable" class="table table-hover dataTable" style="width:100%">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Category)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Message)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.FromUserId)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.NoteDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.IsRead)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Category)
+                        </td>
+                        <td class="@((item.IsRead) ? "green" : "red")">
+                            @Html.DisplayFor(modelItem => item.Message)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FromUserId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NoteDate)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IsRead)
+                        </td>
+                        <td style="text-align:right;">
+                          @*   @Html.ActionLink("Edit", "Edit", new { id = item.Id }) *@
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+            </tfoot>
+        </table>
+    </div>
+</div>

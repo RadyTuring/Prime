@@ -1,0 +1,53 @@
+﻿@model IEnumerable<BookService>
+
+@{
+    string title = "Book Services";
+    ViewData["Title"] = title;
+    <partial name="_titleBar" model="@title" />
+}
+
+<div class="box-header">
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+</div>
+<!-- /.box-header --></p>
+<div class="box-body">
+    <table id="_datatable" class="table table-hover dataTable" style="width:100%">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ServiceName)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ServiceName)
+                    </td>
+                    <td style="text-align:right;">
+                        <a asp-action="Edit" asp-route-id="@item.Id" title="Edit">
+                            <i class="fas fa-edit"></i>
+                        </a> |
+                        <a asp-action="Details" asp-route-id="@item.Id" title="Details">
+                            <i class="fas fa-info-circle"></i>
+                        </a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id" title="Delete">
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
+                      
+                    </td>
+                   
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+
+

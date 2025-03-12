@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Log>
+@{
+    string title = "User Logs";
+    ViewData["Title"] = title;
+    <partial name="_titleBar" model="@title" />
+}
+<div class="box-body">
+        <table id="_datatable" class="table table-hover dataTable" style="width:100%">
+        <thead>
+            <tr>
+                <th>
+                @Html.DisplayNameFor(model => model.UserId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Action)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TranDate)
+                </th>
+              
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Action)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TranDate)
+                    </td>
+                   
+                </tr>
+            }
+        </tbody>
+    </table>
+    <
+</div>

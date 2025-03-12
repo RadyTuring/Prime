@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="~/dist/css/all.min.css">
+    <link rel="stylesheet" href="~/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/dist/css/select2.min.css">
+    <link rel="stylesheet" href="~/dist/css/select2-bootstrap-5-theme.min.css">
+    <link rel="stylesheet" href="~/css/style.css">
+    <link rel="stylesheet" href="~/css/login.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <div class="container">
+        <div class="forms">
+            <div class="cover">
+                <div id="primeimagediv"></div>
+            </div>
+            @RenderBody()
+        </div>
+    </div>
+    <script src="~/dist/js/popper.min.js"></script>
+    <script src="~/dist/js/bootstrap.min.js"></script>
+    <script src="~/dist/js/jquery.min.js"></script>
+    <script src="~/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/dist/js/select2.min.js"></script>
+    <script src="~/dist/js/ae360af17e.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+    <script>
+        $(document).ready(function () {
+            $('.select2').select2({
+                theme: 'bootstrap-5'
+            });
+        });
+    </script>
+</body>
+</html>

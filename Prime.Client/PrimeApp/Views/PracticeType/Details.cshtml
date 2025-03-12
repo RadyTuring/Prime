@@ -1,0 +1,23 @@
+﻿@model Entities.PracticeType
+@{
+    string title = "Practice Type Details";
+    ViewData["Title"] = title;
+    <partial name="_titleBar" model="@title" />
+}
+
+<div>
+    
+  
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TypeName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TypeName)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.TypeId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

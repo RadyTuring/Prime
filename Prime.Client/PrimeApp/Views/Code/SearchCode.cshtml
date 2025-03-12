@@ -1,0 +1,77 @@
+﻿@model CodeSearchDto
+@{
+    string title = "Search Codes ";
+    ViewData["Title"] = title;
+    <partial name="_titleBar" model="@title" />
+}
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="SearchCode">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group row">
+                <label asp-for="PatchType" class="col-md-4 col-form-label"></label>
+                <div class="col-md-8">
+                    <select asp-for="PatchType" class="form-control select2" asp-items="ViewBag.Patchtypes">
+                    </select>
+                    <span asp-validation-for="PatchType" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label asp-for="BookId" class="col-md-4 col-form-label">Book ID</label>
+                <div class="col-md-8">
+                    <select asp-for="BookId" class="form-control select2" asp-items="ViewBag.books">
+                        <option value="0">-- Select Book --</option>
+                    </select>
+                    <span asp-validation-for="BookId" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label asp-for="PatchDesc" class="col-md-4 col-form-label">Description</label>
+                <div class="col-md-8">
+                    <select asp-for="PatchDesc" class="form-control select2" asp-items="ViewBag.PatchDescs">
+                    </select>
+                    <span asp-validation-for="PatchDesc" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label asp-for="UserName" class="col-md-4 col-form-label">User Name</label>
+                <div class="col-md-8">
+                    <select asp-for="UserName" class="form-control select2" asp-items="ViewBag.users">
+                    </select>
+                    <span asp-validation-for="UserName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="DateFrom" class="col-md-4 col-form-label">Date From</label>
+                <div class="col-md-8">
+                    <input asp-for="DateFrom" type="date"  class="form-control" />
+                    <span asp-validation-for="DateFrom" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label asp-for="DateTo" class="col-md-4 col-form-label">Date To</label>
+                <div class="col-md-8">
+                    <input asp-for="DateTo" type="date" class="form-control" />
+                    <span asp-validation-for="DateTo" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-8 offset-md-4">
+                    <input type="submit" value="Search" class="btn btn-primary" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

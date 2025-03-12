@@ -1,0 +1,43 @@
+﻿@model  NoteDto
+@{
+    string title = "Send Notification";
+    ViewData["Title"] = title;
+    <partial name="_titleBar" model="@title" />
+}
+  
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="SendNote">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label   class="control-label">User Name</label>
+                <input class="form-control" value="@ViewBag.username" readonly />
+                
+            </div>
+            <div class="form-group">
+                <label asp-for="Category" class="control-label"></label>
+                <input asp-for="Category" class="form-control" />
+                <span asp-validation-for="Category" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Message" class="control-label"></label>
+                <textarea asp-for="Message" class="form-control" maxlength="150" rows="4"></textarea>
+                <span asp-validation-for="Message" class="text-danger"></span>
+            </div>
+           
+              
+                <input style="display:none;" asp-for="ToUserId" class="form-control" value="@ViewBag.userid" readonly />
+                
+           
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+ 

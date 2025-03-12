@@ -1,0 +1,97 @@
+﻿@model IEnumerable<ClassStudentsV>
+<style>
+    .green {
+        background-color: lightgreen;
+    }
+
+    .red {
+        background-color: pink;
+    }
+
+    /* Add custom styles for narrower table rows */
+    #example1.table td, #example1.table th {
+        padding: 2px 4px; /* Adjust padding to make rows narrower */
+        font-size: 14px; /* Adjust font size for a more compact look */
+    }
+
+    /* Optional: Reduce padding for the dropdown menu items */
+    .btn-group .dropdown-menu a {
+        padding: 5px 10px;
+    }
+</style>
+<div class="box-body">
+    <table id="_datatable" class="table table-bordered">
+
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.UserId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UserName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FullName)
+                </th>
+
+
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr class="@((!item.IsActiveUser) ? "red" : "")">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FullName)
+                    </td>
+
+                    <td>
+
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-info btn-flat">Choose The Action</button>
+                            <button type="button" class="btn btn-info btn-flat dropdown-toggle" data-toggle="dropdown">
+                                <span class="caret"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+
+                                <li> <a href="#" onclick="blockUser(@item.UserId)">@((item.IsActiveUser) ? "Block Student" : "Activate")</a></li>
+                                <li class="divider"></li>
+                                <li> <a asp-controller="Admin" asp-action="ResetPassword" asp-route-id="@item.UserId">Reset Password</a></li>
+                                <li class="divider"></li>
+                                <li><a asp-controller="Teacher" asp-action="GetStudentAttendance" asp-route-id="@item.UserId">Attendance</a></li>
+                                <li class="divider"></li>
+                                <li><a asp-controller="Teacher" asp-action="GetStudentResult" asp-route-id="@item.UserId">Results</a></li>
+                                <li class="divider"></li>
+                                <li><a asp-controller="log" asp-action="GetLog" asp-route-id="@item.UserId">Log</a></li>
+                            </ul>
+                        </div>
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<script>
+    function blockUser(teacherId) {
+        $.ajax({
+            url: '@Url.Action("BlockUser", "Admin")',
+            type: 'POST',
+            data: { id: teacherId },
+            success: function (result) {
+                window.location.reload();
+            },
+            error: function (xhr, status, error) {
+                alert('Error blocking user: ' + error);
+            }
+        });
+    }
+</script>

@@ -1,0 +1,39 @@
+﻿@model IEnumerable<AdminBooksV>
+@{
+    string title = "Books";
+    ViewData["Title"] = title;
+    <partial name="_titleBar" model="@title" />
+    int i = 0;
+    var imgs = ViewBag.images as string[];
+}
+
+
+<div class="container mt-4">
+    <div class="row" id="bookCards">
+        @foreach (var book in Model)
+        {
+            <div class="col-md-3 mb-3 book-card" data-bookid="@book.BookId">
+                <div class="card h-100 shadow-sm">
+                    <!-- Placeholder for the book image -->
+                    <img src="@imgs[i]"
+                         class="card-img-top book-image"
+                         alt="Book Image"
+                         style="height: 120px; object-fit: cover;">
+
+                    <!-- Book Details -->
+                    <div class="card-body">
+                        <h5 class="card-title">@book.BookName</h5>
+                        <p class="card-text">
+                            <strong>Admin ID:</strong> @book.AdminId <br />
+                            <strong>Teacher Codes:</strong> @book.TeacherCodesCount <br />
+                            <strong>Assigned Teachers:</strong> @book.AssignedTeachersCount
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            i++;
+
+        }
+    </div>
+</div>

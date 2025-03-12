@@ -1,0 +1,73 @@
+﻿@model CodePatch
+@{
+    string title = "Edit Codes";
+    ViewData["Title"] = title;
+    <partial name="_titleBar" model="@title" />
+    bool isShow = Model.PatchType.ToLower() == "book";
+}
+ <div class="row">
+
+    <div class="col-md-6">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group row">
+                <label asp-for="Id" class="col-md-4 col-form-label"></label>
+                <div class="col-md-8">
+                    <input asp-for="Id" class="form-control" disabled />
+                    <span asp-validation-for="Id" class="text-danger"></span>
+                </div>
+            </div>
+            <input asp-for="PatchType" class="form-control" style="display: none;" />
+            <div class="form-group row ">
+                <label asp-for="PatchDesc" class="col-md-4 col-form-label"></label>
+                <div class="col-md-8">
+                    <input asp-for="PatchDesc" class="form-control" />
+                    <span asp-validation-for="PatchDesc" class="text-danger"></span>
+                </div>
+            </div>
+            @if (isShow)
+            {
+                <div class="form-group row">
+                    <label for="IsPrinted" class="col-md-4 col-form-label"></label>
+                    <div class="col-md-8">
+                        <input type="checkbox" asp-for="IsPrinted" class="form-check-input" />
+                        <label class="form-check-label" for="IsPrinted">@Html.DisplayNameFor(model => model.IsPrinted)</label>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label asp-for="InventoryLocation" class="col-md-4 col-form-label"></label>
+                    <div class="col-md-8">
+                        <input asp-for="InventoryLocation" class="form-control" />
+                        <span asp-validation-for="InventoryLocation" class="text-danger"></span>
+                    </div>
+                </div>
+            }
+           
+            <div class="form-group row">
+                <label asp-for="Notes" class="col-md-4 col-form-label"></label>
+                <div class="col-md-8">
+                    <input asp-for="Notes" class="form-control" />
+                    <span asp-validation-for="Notes" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label  class="col-md-4 col-form-label"></label>
+                <div class="col-md-8">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
+             
+        </form>
+    </div>
+    <div>
+        <a asp-action="CodePatchSearchResult">Back to List</a>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

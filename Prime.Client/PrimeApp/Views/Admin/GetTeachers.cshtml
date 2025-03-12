@@ -1,0 +1,57 @@
+﻿@model IEnumerable<AdminTeachersV>
+
+
+@{
+    string title = "Books";
+    ViewData["Title"] = title;
+    <partial name="_titleBar" model="@title" />
+}
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<div class="box-body">
+    <table id="_datatable" class="table table-hover dataTable" style="width:100%">
+        <thead>
+            <tr>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.TeacherId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TeacherUserName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TeacherFullName)
+                </th>
+
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TeacherId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TeacherUserName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TeacherFullName)
+                    </td>
+
+                    <td>
+
+                        <a asp-controller="Admin" asp-action="ResetPassword" asp-route-id="@item.TeacherId" class='fas fa-edit'>Reset Password</a>
+                        <a asp-controller="Teacher" asp-action="GetClasses" asp-route-id="@item.TeacherId" class='fas fa-edit'>Classes</a>
+                        <a asp-controller="Teacher" asp-action="Getstudents" asp-route-id="@item.TeacherId" class='fas fa-edit'>Students</a>
+                        <a asp-controller="log" asp-action="GetLog" asp-route-id="@item.TeacherId" class='fas fa-edit'>Log</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

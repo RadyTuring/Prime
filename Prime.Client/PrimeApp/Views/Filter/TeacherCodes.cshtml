@@ -1,0 +1,27 @@
+﻿@{
+    string title = "Teacher Codes";
+    ViewData["Title"] = title;
+    <partial name="_titleBar" model="@title" />    
+}
+<div class="row">
+    <div class="col-md-3">
+        <div class="d-flex gap-2">
+            <a asp-controller="Admin" asp-action="AddTeacherCode" class="btn btn-primary flex-fill">Add Code</a>
+            <a asp-controller="Admin" asp-action="Import" class="btn btn-primary flex-fill">Import</a>
+        </div>
+    </div>
+</div>
+<hr />
+
+@Html.Raw(@ViewBag.htmltb)
+@section Scripts {
+    <script>
+        @Html.Raw(@ViewBag.script)
+        @Html.Raw(@ViewBag.alert)
+           
+    </script>
+}
+
+
+  
+
